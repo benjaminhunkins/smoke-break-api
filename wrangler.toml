@@ -1,0 +1,21 @@
+name = "smoke-break-api"
+main = "worker.js"
+compatibility_date = "2026-07-01"
+
+# Exact global counter via Durable Object (SQLite-backed = free plan OK)
+[[durable_objects.bindings]]
+name = "COUNTER"
+class_name = "Counter"
+
+# Per-IP rate limit on POST /smoke: 10 breaks per minute.
+# Cloudflare's built-in rate limiting binding — per-colo and best-effort,
+# which is plenty for keeping the counter honest.
+[[unsafe.bindings]]
+name = "SMOKE_LIMITER"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Counter"]

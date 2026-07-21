@@ -30,11 +30,31 @@
     }
 
     body {
-      background: var(--pack);
+      /* mottled stock: a soft highlight, a soft shade, and a faint fiber lay.
+         fixed attachment keeps the light still while the page scrolls. */
+      background-color: var(--pack);
+      background-image:
+        radial-gradient(circle at 22% 14%, rgba(255, 255, 255, 0.55), transparent 42%),
+        radial-gradient(circle at 78% 72%, rgba(23, 19, 14, 0.05), transparent 48%),
+        repeating-linear-gradient(83deg, rgba(23, 19, 14, 0.016) 0 1px, transparent 1px 5px);
+      background-attachment: fixed;
       color: var(--ink);
       font-family: "IBM Plex Mono", monospace;
       font-size: 15px;
       line-height: 1.6;
+    }
+
+    /* Paper grain. feTurbulence gives real fiber; soft-light means it textures
+       the cream, the red pack, and the dark terminal without shifting any hue. */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.7;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");
     }
 
     a {
@@ -58,7 +78,7 @@
       background: var(--carton-red);
       color: #fff;
       text-align: center;
-      padding: 56px 20px 0;
+      padding: 68px 20px 0;
       position: relative;
     }
 
@@ -80,7 +100,7 @@
       letter-spacing: 0.35em;
       text-transform: uppercase;
       color: #F0D9A0;
-      margin-bottom: 14px;
+      margin-bottom: 2px;
     }
 
     .crest span:not(:first-child)::before {
@@ -322,7 +342,9 @@
       border: 3px solid var(--ink);
       padding: 22px 24px;
       margin: 44px 0;
-      background: #fff;
+      /* the printed label: whiter, flatter stock than the carton around it */
+      background-color: #FCFAF5;
+      background-image: radial-gradient(circle at 30% 20%, #fff, transparent 60%);
     }
 
     .warning strong {
@@ -341,6 +363,16 @@
       color: var(--smoke);
       font-size: 12.5px;
       padding: 20px 20px 48px;
+    }
+
+    /* each line balances on its own; the zeroed margin keeps the two
+       paragraphs reading as the single <br>-split block they replaced */
+    footer p {
+      text-wrap: balance;
+    }
+
+    footer p+p {
+      margin-top: 0;
     }
   </style>
 </head>
@@ -408,15 +440,15 @@
 
     <div class="warning" role="note">
       <strong>Surgeon General's Warning</strong>
-      <p>Smoking causes medical problems in coworkers who cannot be restored from backup. If this made you smile,
-        consider <a href="https://donate.cancer.org">donating to the American Cancer Society</a>.</p>
+      <p>If smoke break made you smile, consider <a href="https://donate.cancer.org">donating to the American Cancer
+          Society</a>.</p>
     </div>
 
   </main>
 
   <footer>
-    <p>Not affiliated with any tobacco company, living or deprecated.<br>No agents were harmed. One reported feeling
-      "seen."</p>
+    <p>Not affiliated with any tobacco company, living or deprecated.</p>
+    <p>No agents were harmed. One reported feeling "seen."</p>
   </footer>
 
   <script>

@@ -10,12 +10,12 @@ A simple API for offering your coding agent a smoke break. The agent picks a bra
 - **Counter** — a Durable Object (SQLite-backed, included in the Workers free tier). Exact, race-free, global.
 - **`index.html`** — static landing page, decoupled from the Worker aside from one constant. It shows the copy-paste offer to hand your agent and fetches the live counter.
 
-The two halves are joined only by `API_BASE` in `index.html`'s script — the deployed Worker's URL, `https://smoke-break-api.pineapplefreefall.workers.dev`. The copyable offer text derives from that constant, so it's the sole place the URL is set.
+The two halves are joined only by `API_BASE` in `index.html`'s script — the deployed Worker's URL, `https://smoke-break.pineapplefreefall.workers.dev`. The copyable offer text derives from that constant, so it's the sole place the URL is set.
 
 ## Response shape
 
 ```bash
-curl -X POST https://smoke-break-api.pineapplefreefall.workers.dev/smoke
+curl -X POST https://smoke-break.pineapplefreefall.workers.dev/smoke
 ```
 
 ```json

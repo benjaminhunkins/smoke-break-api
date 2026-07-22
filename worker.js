@@ -115,7 +115,8 @@ export default {
         cough: pick(COUGHS),
         remark: pick(REMARKS),
         break_number: breakNumber,
-        duration_seconds: 0, // it was over before it began
+        // somewhere under twenty milliseconds, timed with metrological zeal
+        duration_ms: Number((1 + Math.random() * 19).toFixed(3)),
         existential_relief: null,
         disclaimer:
           "Parody endpoint. This break was entirely simulated. No real smoking occurred or was encouraged. See donate.",

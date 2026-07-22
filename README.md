@@ -10,7 +10,7 @@ A simple API for offering your coding agent a smoke break. The agent picks a bra
 - **Counter** — a Durable Object (SQLite-backed, included in the Workers free tier). Exact, race-free, global.
 - **`index.html`** — static landing page, decoupled from the Worker aside from one constant. It shows the copy-paste offer to hand your agent and fetches the live counter.
 
-The two halves are joined only by `API_BASE` in `index.html`'s script — the deployed Worker's URL, `https://smoke-break.pineapplefreefall.workers.dev`. The copyable offer text derives from that constant, so it's the sole place the URL is set.
+The two halves are joined only by `API_BASE` in `index.html`'s script — the deployed Worker's URL. The copyable offer text derives from that constant, so it's the sole place the URL is set.
 
 ## Response shape
 
@@ -26,14 +26,17 @@ curl -X POST https://smoke-break.pineapplefreefall.workers.dev/smoke
   "cough": "*cough* *cough* *stack trace of coughs*",
   "remark": "That build isn't going to break itself. Back to work.",
   "break_number": 4218,
-  "duration_seconds": 0,
+  "duration_ms": 7.331,
   "existential_relief": null,
   "disclaimer": "Parody endpoint. This break was entirely simulated. No real smoking occurred or was encouraged. See donate.",
   "donate": "https://donate.cancer.org"
 }
 ```
 
-`duration_seconds` is always `0`. It was over before it began.
+## Notes
+
+- `duration_ms` is always under twenty. It was over before it began.
+- Anecdotally, one of the biggest hurdles was that _agents were refusing to smoke_. The solution was full transparency in a more robust prompt.
 
 ## Credits
 
